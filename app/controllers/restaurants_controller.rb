@@ -13,15 +13,15 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-    @restaurant = Restaurant.find(params.fetch(:id))
+    @restaurant = fetch_restaurant_by_id
   end
 
   def edit
-    @restaurant = Restaurant.find(params.fetch(:id))
+    @restaurant = fetch_restaurant_by_id
   end
 
   def update
-    @restaurant = Restaurant.find(params.fetch(:id))
+    @restaurant = fetch_restaurant_by_id
     if @restaurant.update_attributes(restaurant_params)
       redirect_to(@restaurant)
     else
@@ -30,7 +30,7 @@ class RestaurantsController < ApplicationController
   end
 
   def destroy
-    @restaurant = Restaurant.find(params.fetch(:id))
+    @restaurant = fetch_restaurant_by_id
     @restaurant.destroy if @restaurant
     redirect_to restaurants_path
   end
@@ -40,6 +40,10 @@ class RestaurantsController < ApplicationController
   end
 
   private
+
+  def fetch_restaurant_by_id
+    Restaurant.find(params.fetch(:id))
+  end
 
   def restaurant_params
     params.require(:restaurant).permit(
