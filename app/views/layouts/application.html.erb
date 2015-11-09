@@ -2,11 +2,18 @@
 <html>
 <head>
   <title>Restaurant</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<% if @current_owner %>
+  <p>Hello <%= @current_owner %></p>
+  <p><%= link_to 'Log Out', destroy_owner_session_path, method: 'delete'%></p>
+<% else %>
+  <p><%= link_to 'Log In', new_owner_session_path %></p>
+  <p><%= link_to 'Sign Up', new_owner_registration_path %></p>
+<% end %>
 
 <%= yield %>
 
