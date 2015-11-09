@@ -2,6 +2,13 @@
 <h2><%= link_to "Create a Restaurant", new_restaurant_path %></h2>
 <ul>
   <% @restaurants.each do |restaurant| %>
-    <li><%= link_to restaurant.name, restaurant %></li>
+    <li>
+      <span class="show">
+        <%= link_to restaurant.name, restaurant %>
+      </span>
+      <span class="edit">
+        <%= link_to 'edit', edit_restaurant_path(restaurant) %>
+      </span>
+    </li>
   <% end %>
 </ul>
