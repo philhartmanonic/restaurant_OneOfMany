@@ -29,6 +29,12 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def destroy
+    @restaurant = Restaurant.find(params.fetch(:id))
+    @restaurant.destroy if @restaurant
+    redirect_to restaurants_path
+  end
+
   def index
     @restaurants = Restaurant.all
   end
