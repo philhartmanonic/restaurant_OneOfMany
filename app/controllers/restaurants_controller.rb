@@ -16,6 +16,10 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params.fetch(:id))
   end
 
+  def edit
+    @restaurant = Restaurant.find(params.fetch(:id))
+  end
+
   def index
     @restaurants = Restaurant.all
   end
