@@ -5,6 +5,15 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.create(restaurant_params)
+    if @restaurant.persisted?
+      redirect_to(@restaurant)
+    else
+      render :new
+    end
+  end
+
+  def show
+    @restaurant = Restaurant.find(params.fetch(:id))
   end
 
   private
