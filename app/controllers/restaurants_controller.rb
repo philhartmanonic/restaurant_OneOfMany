@@ -4,7 +4,7 @@ class RestaurantsController < ApplicationController
   end
 
   def create
-    @restaurant = Restaurant.create(restaurant_params)
+    @restaurant = Restaurant.create(restaurant_create_params)
     if @restaurant.persisted?
       redirect_to(@restaurant)
     else
@@ -17,11 +17,11 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
-    @restaurant = fetch_restaurant_by_id
+    @restaurant = fetch_and_authorize_restaurant
   end
 
   def update
-    @restaurant = fetch_restaurant_by_id
+    @restaurant = fetch_and_authorize_restaurant
     if @restaurant.update_attributes(restaurant_params)
       redirect_to(@restaurant)
     else
@@ -30,7 +30,7 @@ class RestaurantsController < ApplicationController
   end
 
   def destroy
-    @restaurant = fetch_restaurant_by_id
+    @restaurant = fetch_and_authorize_restaurant
     @restaurant.destroy if @restaurant
     redirect_to restaurants_path
   end
@@ -40,6 +40,16 @@ class RestaurantsController < ApplicationController
   end
 
   private
+
+  def fetch_and_authorize_restaurant
+    restaurant = fetch_restaurant_by_id
+    if restaurant.is_owner?(current_owner)
+      restaurant
+    else
+      flash[:error] = 'Unauthorized'
+      redirect_to(restaurant)
+    end
+  end
 
   def fetch_restaurant_by_id
     Restaurant.find(params.fetch(:id))
@@ -52,5 +62,9 @@ class RestaurantsController < ApplicationController
       :full_address,
       :phone_number
     )
+  end
+
+  def restaurant_create_params
+    restaurant_params.merge(owner: current_owner)
   end
 end

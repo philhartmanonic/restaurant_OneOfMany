@@ -7,9 +7,13 @@
 </head>
 <body>
 
-<% if @current_owner %>
-  <p>Hello <%= @current_owner %></p>
-  <p><%= link_to 'Log Out', destroy_owner_session_path, method: 'delete'%></p>
+<% if flash[:error] %>
+  <h3><%= flash[:error] %></h3>
+<% end %>
+
+<% if owner_signed_in? %>
+  <p>Hello <%= current_owner.name %></p>
+  <p><%= button_to 'Log Out', destroy_owner_session_path, method: 'delete' %></p>
 <% else %>
   <p><%= link_to 'Log In', new_owner_session_path %></p>
   <p><%= link_to 'Sign Up', new_owner_registration_path %></p>

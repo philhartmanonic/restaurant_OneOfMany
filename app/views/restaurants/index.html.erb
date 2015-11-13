@@ -6,12 +6,14 @@
       <span class="show">
         <%= link_to restaurant.name, restaurant %>
       </span>
-      <span class="edit">
-        <%= link_to 'Edit', edit_restaurant_path(restaurant) %>
-      </span>
-      <span class="delete">
-        <%= link_to 'Delete', restaurant_path(restaurant), method: 'delete' %>
-      </span>
+      <% if restaurant.is_owner?(current_owner) %>
+        <span class="edit">
+          <%= link_to 'Edit', edit_restaurant_path(restaurant) %>
+        </span>
+        <span class="delete">
+          <%= link_to 'Delete', restaurant_path(restaurant), method: 'delete' %>
+        </span>
+      <% end %>
     </li>
   <% end %>
 </ul>
