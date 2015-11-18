@@ -60,7 +60,8 @@ class RestaurantsController < ApplicationController
       :name,
       :description,
       :full_address,
-      :phone_number
+      :phone_number,
+      reservation: [ :email, :time ]
     )
   end
 

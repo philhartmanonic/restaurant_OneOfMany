@@ -8,3 +8,11 @@
 
 <h4>Phone Number</h4>
 <p><%= @restaurant.phone_number %></p>
+
+<%= form_for(@restaurant) do |r| %>
+	<%= r.fields_for(@reservation) do |f| %>
+		email address: <%= f.email_field :email %>
+		time: <%= f.datetime_select :time %>
+	<% end %>
+	<%= r.submit %>
+<% end %>

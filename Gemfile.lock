@@ -39,6 +39,7 @@ GEM
     arel (6.0.3)
     bcrypt (3.1.10)
     builder (3.2.2)
+    cancan (1.6.10)
     coderay (1.1.0)
     devise (3.5.2)
       bcrypt (~> 3.0)
@@ -141,6 +142,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cancan
   devise
   jquery-rails
   pry-rails

@@ -11,6 +11,7 @@ gem 'sqlite3'
 gem 'jquery-rails'
 
 gem 'devise'
+gem 'cancan'
 
 group :development, :test do
   gem 'pry-rails'
